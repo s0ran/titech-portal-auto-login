@@ -1,0 +1,30 @@
+{
+  "name": "Titech Portal Auto Login",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js",
+    "module":true
+  },
+  "content_scripts": [
+	{
+		"matches": ["https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=userpass_key&AUTHMETHOD=UserPassword"],
+		"js": [
+			"src/fill_user_info.js"
+		]
+	},
+  	{
+		"matches": ["https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=idg_key*"],
+		"js": [
+			"src/fill_matrix_info.js"
+		]
+	}
+],
+"action": {
+    "default_title": "Click to jump to the portal"
+},
+"minimum_chrome_version": "93",
+"options_page":  "src/options.html",
+"permissions":["storage","tabs","activeTab","scripting","background"],
+"host_permissions":["https://portal.nap.gsic.titech.ac.jp/*"]
+}
